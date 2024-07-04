@@ -57,11 +57,11 @@ function checkAnswer(currentLevel) {
     } else {
         playSound("wrong");
         $("body").addClass("game-over");
+        $("#level-title").text("Game Over, Press Any Key or Tap to Restart");
         setTimeout(function() {
             $("body").removeClass("game-over");
+            startOver();
         }, 200);
-        $("#level-title").text("Game Over, Press Any Key or Tap to Restart");
-        startOver();
     }
 }
 
