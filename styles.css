@@ -1,6 +1,7 @@
 body {
   text-align: center;
   background-color: #011F3F;
+  transition: background-color 0.3s;
 }
 
 #level-title {
@@ -47,7 +48,7 @@ body {
 }
 
 .game-over {
-  background-color: red;
+  background-color: red !important;
   opacity: 0.8;
 }
 

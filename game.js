@@ -15,17 +15,7 @@ function nextSequence() {
     playSound(randomChosenColour);
 }
 
-$(".btn").on("click", function(event) {
-    if (started) {
-        var userChosenColour = event.currentTarget.id;
-        userClickedPattern.push(userChosenColour);
-        animatePress(userChosenColour);
-        playSound(userChosenColour);
-        checkAnswer(userClickedPattern.length - 1);
-    }
-});
-
-$(".btn").on("touchstart", function(event) {
+$(".btn").on("click touchstart", function(event) {
     event.preventDefault(); // Prevent default touch behavior
     if (started) {
         var userChosenColour = event.currentTarget.id;
@@ -48,21 +38,12 @@ function animatePress(currentColour) {
     }, 100);
 }
 
-$(document).on("keypress", function() {
+$(document).on("keypress touchstart", function(event) {
     if (!started) {
         $("#level-title").text("Level " + level);
         nextSequence();
         started = true;
-        $(document).off("keypress");
-    }
-});
-
-$(document).on("touchstart", function(event) {
-    if (!started) {
-        $("#level-title").text("Level " + level);
-        nextSequence();
-        started = true;
-        $(document).off("touchstart");
+        $(document).off("keypress touchstart");
     }
 });
 
@@ -79,7 +60,7 @@ function checkAnswer(currentLevel) {
         setTimeout(function() {
             $("body").removeClass("game-over");
         }, 200);
-        $("#level-title").text("Game Over, Press Any Key to Restart");
+        $("#level-title").text("Game Over, Press Any Key or Tap to Restart");
         startOver();
     }
 }
@@ -88,21 +69,12 @@ function startOver() {
     level = 0;
     gamePattern = [];
     started = false;
-    $(document).on("keypress", function() {
+    $(document).on("keypress touchstart", function(event) {
         if (!started) {
             $("#level-title").text("Level " + level);
             nextSequence();
             started = true;
-            $(document).off("keypress");
-        }
-    });
-
-    $(document).on("touchstart", function(event) {
-        if (!started) {
-            $("#level-title").text("Level " + level);
-            nextSequence();
-            started = true;
-            $(document).off("touchstart");
+            $(document).off("keypress touchstart");
         }
     });
 }
