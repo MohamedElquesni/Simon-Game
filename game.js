@@ -38,15 +38,6 @@ function animatePress(currentColour) {
     }, 100);
 }
 
-$(document).on("keypress touchstart", function(event) {
-    if (!started) {
-        $("#level-title").text("Level " + level);
-        nextSequence();
-        started = true;
-        $(document).off("keypress touchstart");
-    }
-});
-
 function checkAnswer(currentLevel) {
     if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
         if (userClickedPattern.length === gamePattern.length) {
@@ -69,6 +60,10 @@ function startOver() {
     level = 0;
     gamePattern = [];
     started = false;
+    enableRestart();
+}
+
+function enableRestart() {
     $(document).on("keypress touchstart", function(event) {
         if (!started) {
             $("#level-title").text("Level " + level);
@@ -78,3 +73,13 @@ function startOver() {
         }
     });
 }
+
+$(document).on("touchstart", function(event) {
+    if (!started) {
+        $("#level-title").text("Level " + level);
+        nextSequence();
+        started = true;
+        $(document).off("keypress touchstart");
+        $(document).off("touchstart");
+    }
+});
